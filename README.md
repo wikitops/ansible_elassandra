@@ -67,12 +67,12 @@ Datacenter: DC1
 Status=Up/Down
 |/ State=Normal/Leaving/Joining/Moving
 --  Address    Load       Tokens       Owns (effective)  Host ID                               Rack
-UN  10.0.4.41  82.83 KiB  8            100.0%            9b94bff6-1b37-4a54-ba27-097fe460b7b9  r1
-UN  10.0.4.42  70.9 KiB   8            100.0%            35fed831-0b81-4012-a372-09d9404bf7f3  r1
-UN  10.0.4.43  84.31 KiB  8            100.0%            020d1bc1-a965-47af-a6b0-7440ac1a92a3  r1
+UN  10.0.4.41  65.84 KiB  8            100.0%            5b40d7ba-7049-4165-b582-397e50fab2d0  r1
+UN  10.0.4.42  82.76 KiB  8            100.0%            d7fff062-2be5-4013-8ef0-4a7899a2b8f2  r2
+UN  10.0.4.43  65.84 KiB  8            100.0%            a5dcea5b-2aee-43bc-bfd9-e0760273a5c1  r3
 ```
 
-You can also check the Elasticsearch cluster status by running this command :
+You can also check the Elasticsearch instance status on each node by running this command :
 
 ```
 $ curl "localhost:9200/_cluster/health?pretty"

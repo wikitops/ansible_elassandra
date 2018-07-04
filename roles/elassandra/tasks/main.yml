@@ -33,5 +33,6 @@
     - cassandra-env.sh
     - cassandra-rackdc.properties
     - logback.xml
+    - jvm.options
   notify: Restart Cassandra
   tags: update-elassandra-config

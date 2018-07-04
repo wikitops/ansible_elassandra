@@ -33,7 +33,7 @@ elassandra_elasticsearch_port: 9200
 elassandra_elasticsearch_cluster_port: 9300
 
 # JVM
-elassandra_max_heap_size: 256M
+elassandra_max_heap_size: 1G
 elassandra_heap_newsize: 100M
 
 # Datacenter configuration

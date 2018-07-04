@@ -1,4 +1,4 @@
 [elassandra]
-10.0.4.41
-10.0.4.42
-10.0.4.43
+10.0.4.41 elassandra_dc=DC1 elassandra_rc=r1
+10.0.4.42 elassandra_dc=DC1 elassandra_rc=r2
+10.0.4.43 elassandra_dc=DC1 elassandra_rc=r3
