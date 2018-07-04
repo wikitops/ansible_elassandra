@@ -1,0 +1,53 @@
+---
+
+# Installation
+elassandra_version: 6.2.3.1
+elassandra_deb_url: "https://github.com/strapdata/elassandra/releases/download/v{{ elassandra_version }}/elassandra-{{ elassandra_version }}.deb"
+
+# User
+elassandra_user: cassandra
+elassandra_group: cassandra
+
+# Global configuration
+elassandra_cluster_name: "Test Cluster"
+elassandra_num_tokens: 8
+
+# Directories configuration
+elassandra_data_directory: /opt/elassandra
+elassandra_data_file_directories:
+  - "{{ elassandra_data_directory }}/data"
+
+elassandra_commitlog_directory: "{{ elassandra_data_directory }}/commitlog"
+elassandra_saved_caches_directory: "{{ elassandra_data_directory }}/saved_caches"
+
+# Seeds configuration
+elassandra_seed_provider_seeds: "{{ groups['elassandra'] | join(',') }}"
+
+# Port configuration
+elassandra_jmx_port: 7199
+elassandra_storage_port: 7000
+elassandra_ssl_storage_port: 7001
+elassandra_listen_address: "{{ inventory_hostname }}"
+elassandra_native_transport_port: 9042
+elassandra_elasticsearch_port: 9200
+elassandra_elasticsearch_cluster_port: 9300
+
+# JVM
+elassandra_max_heap_size: 256M
+elassandra_heap_newsize: 100M
+
+# Datacenter configuration
+elassandra_dc: DC1
+elassandra_rc: r1
+
+# Logback configuration
+elassandra_logback:
+  FILE:
+    file: "${cassandra.logdir}/system.log"
+    fileNamePattern: "${cassandra.logdir}/system.log.%i.zip"
+    minIndex: 1
+    maxIndex: 20
+    maxFileSize: 500MB
+    encoder_pattern: "%date{ISO8601} %-5level [%thread] %F:%L %M %msg%n"
+  ROOT:
+    level: WARN

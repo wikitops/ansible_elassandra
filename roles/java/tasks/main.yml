@@ -1,0 +1,6 @@
+---
+
+- name: JAVA | Install prerequisites packages
+  package:
+    name: "{{ java_version }}"
+    state: present

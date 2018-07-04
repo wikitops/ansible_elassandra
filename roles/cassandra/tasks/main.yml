@@ -1,0 +1,45 @@
+---
+
+- name: CASSANDRA | Import key
+  apt_key:
+    url: "{{ cassandra_apt_key }}"
+    state: present
+
+- name: CASSANDRA | Add repository
+  apt_repository:
+    repo: "{{ cassandra_apt_url }}"
+    state: present
+
+- name: CASSANDRA | Install packages
+  package:
+    name: cassandra
+    update_cache: yes
+    state: present
+  notify: Restart Cassandra
+
+- name: CASSANDRA | Create directories
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{{ cassandra_user }}"
+    group: "{{ cassandra_group }}"
+    mode: 0755
+  with_items:
+    - "{{ cassandra_data_file_directories }}"
+    - "{{ cassandra_commitlog_directory }}"
+    - "{{ cassandra_saved_caches_directory }}"
+    - "{{ cassandra_hints_directory }}"
+
+- name: CASSANDRA | Configure
+  template:
+    src: etc/cassandra/{{ item }}.j2
+    dest: /etc/cassandra/{{ item }}
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - cassandra.yaml
+    - cassandra-env.sh
+    - logback.xml
+  notify: Restart Cassandra
+  tags: update-cassandra-config

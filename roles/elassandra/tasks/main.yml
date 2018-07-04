@@ -1,0 +1,37 @@
+---
+
+- name: ELASSANDRA ON OS | Installation
+  apt:
+    deb: "{{ elassandra_deb_url }}"
+    state: present
+  notify: Restart Cassandra
+  tags: update-elassandra-binary
+
+- name: ELASSANDRA ON OS | Create directories
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{{ elassandra_user }}"
+    group: "{{ elassandra_group }}"
+    mode: 0755
+  with_items:
+    - "{{ elassandra_data_file_directories }}"
+    - "{{ elassandra_commitlog_directory }}"
+    - "{{ elassandra_saved_caches_directory }}"
+  notify: Restart Cassandra
+
+- name: ELASSANDRA ON OS | Configuration
+  template:
+    src: etc/cassandra/{{ item }}.j2
+    dest: /etc/cassandra/{{ item }}
+    owner: "{{ elassandra_user }}"
+    group: "{{ elassandra_group }}"
+    mode: 0644
+  with_items:
+    - cassandra.yaml
+    - elasticsearch.yml
+    - cassandra-env.sh
+    - cassandra-rackdc.properties
+    - logback.xml
+  notify: Restart Cassandra
+  tags: update-elassandra-config
